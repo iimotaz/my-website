@@ -21,7 +21,13 @@
       ]
     },
     {
-      "source": "/(.*\\.(css|js))",
+      "source": "/:path*.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/:path*.js",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
