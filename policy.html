@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#2563EB" />
+  <title>Privacy Policy — Motaz</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563EB'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FFFFFF' font-family='Arial' font-weight='bold'>M</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --background: #090909;
+      --foreground: #F1F5F9;
+      --card: rgba(20, 23, 28, 0.6);
+      --card-solid: #14171C;
+      --card-hover: rgba(26, 31, 38, 0.7);
+      --muted: #101317;
+      --muted-foreground: #94A3B8;
+      --accent: rgba(23, 37, 84, 0.5);
+      --primary: #2563EB;
+      --primary-foreground: #FFFFFF;
+      --blue-soft: #60A5FA;
+      --border: rgba(36, 43, 53, 0.6);
+      --ring: #2563EB;
+      --glow: 0 0 40px rgba(37, 99, 235, 0.35);
+      --gradient-radial: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.18) 0%, rgba(37, 99, 235, 0) 70%);
+      --font-body: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      --radius: 16px;
+      --glass-blur: blur(20px);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+
+    body[data-theme="light"] {
+      --background: #F1F5F9;
+      --foreground: #0F172A;
+      --card: rgba(255, 255, 255, 0.7);
+      --card-solid: #FFFFFF;
+      --card-hover: rgba(248, 250, 252, 0.8);
+      --muted: #E2E8F0;
+      --muted-foreground: #64748B;
+      --accent: rgba(219, 234, 254, 0.6);
+      --primary: #2563EB;
+      --blue-soft: #3B82F6;
+      --border: rgba(203, 213, 225, 0.5);
+      --glass-blur: blur(16px);
+      --glass-border: rgba(255, 255, 255, 0.5);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.7;
+      min-height: 100vh;
+      transition: background 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: policyGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes policyGlow {
+      0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.15); }
+    }
+
+    .policy-wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 100px;
+    }
+
+    .policy-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .policy-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.25s,
+                  box-shadow 0.25s,
+                  transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .policy-back:hover {
+      color: var(--blue-soft);
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+      transform: translateY(-2px);
+    }
+    .policy-back svg { width: 16px; height: 16px; }
+
+    .theme-toggle {
+      width: 42px; height: 42px;
+      display: grid; place-items: center;
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      color: var(--muted-foreground);
+      font-size: 1.1rem;
+      background: var(--card);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .theme-toggle:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+      transform: translateY(-2px) scale(1.08);
+    }
+    .theme-toggle .icon-sun { display: none; }
+    body[data-theme="light"] .theme-toggle .icon-sun { display: inline; }
+    body[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+    .policy-card {
+      background: var(--card);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 48px 44px;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      opacity: 0;
+      transform: translateY(30px) blur(6px);
+      animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    @keyframes cardReveal {
+      to { opacity: 1; transform: translateY(0) blur(0); }
+    }
+
+    .policy-card:hover {
+      border-color: color-mix(in srgb, var(--primary) 15%, var(--glass-border));
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--foreground) 0%, var(--primary) 40%, var(--blue-soft) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.3;
+    }
+
+    .policy-updated {
+      color: var(--muted-foreground);
+      font-size: 0.85rem;
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--foreground);
+      margin-top: 36px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '';
+      width: 4px; height: 20px;
+      background: linear-gradient(180deg, var(--primary), var(--blue-soft));
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+
+    p, li {
+      color: var(--muted-foreground);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    strong { color: var(--foreground); font-weight: 600; }
+
+    ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    li { margin-bottom: 8px; padding-left: 4px; }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    a:hover {
+      color: var(--blue-soft);
+      border-bottom-color: var(--blue-soft);
+    }
+
+    @media (max-width: 640px) {
+      .policy-wrapper { padding: 60px 16px 80px; }
+      .policy-card { padding: 32px 22px; }
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1.05rem; }
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      body::before { display: none; }
+      .policy-card { background: #fff; border-color: #ddd; box-shadow: none; backdrop-filter: none; }
+      h1 { -webkit-text-fill-color: #000; background: none; }
+      h2 { color: #000; }
+      h2::before { background: #000; }
+      p, li { color: #333; }
+      strong { color: #000; }
+      .policy-back { display: none; }
+      .theme-toggle { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="policy-wrapper">
+    <div class="policy-topbar">
+      <a href="index.html" class="policy-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Portfolio
+      </a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+        <span class="icon-moon">&#9790;</span>
+        <span class="icon-sun">&#9728;</span>
+      </button>
+    </div>
+
+    <div class="policy-card">
+      <h1>Privacy Policy</h1>
+      <p class="policy-updated">Last updated: August 2026</p>
+
+      <h2>1. Information I Collect</h2>
+      <p>This portfolio website is a personal showcase. I do not collect personal data automatically. The only information collected is what you voluntarily provide through the contact form:</p>
+      <ul>
+        <li>Your name</li>
+        <li>Your email address</li>
+        <li>Your message</li>
+      </ul>
+
+      <h2>2. How I Use Your Information</h2>
+      <p>The information you submit through the contact form is sent directly to my WhatsApp and is used solely to respond to your inquiry. I do not store, sell, or share your data with third parties.</p>
+
+      <h2>3. Analytics</h2>
+      <p>This site uses <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a>, a privacy-friendly analytics tool. GoatCounter collects anonymous, aggregated data such as:</p>
+      <ul>
+        <li>Pages visited</li>
+        <li>Referrers</li>
+        <li>Browser type</li>
+        <li>Country (approximate, based on IP)</li>
+      </ul>
+      <p>GoatCounter does <strong>not</strong> use cookies and does <strong>not</strong> track individual users across sites.</p>
+
+      <h2>4. Cookies</h2>
+      <p>This website does not use any cookies except for GoatCounter's optional cookie-free analytics. No advertising or tracking cookies are used.</p>
+
+      <h2>5. Third-Party Services</h2>
+      <ul>
+        <li><strong>YouTube</strong> — embedded videos may set cookies when played.</li>
+        <li><strong>WhatsApp</strong> — clicking the WhatsApp link opens an external site with its own privacy policy.</li>
+        <li><strong>Instagram</strong> — external link with its own privacy policy.</li>
+      </ul>
+
+      <h2>6. Data Security</h2>
+      <p>This website is hosted on Vercel with HTTPS encryption enabled by default. While I take reasonable measures to protect the site, no method of transmission over the Internet is 100% secure.</p>
+
+      <h2>7. Children's Privacy</h2>
+      <p>This website is not directed at children under 13 and does not knowingly collect personal information from children.</p>
+
+      <h2>8. Changes to This Policy</h2>
+      <p>I may update this privacy policy from time to time. Any changes will be reflected on this page with an updated date.</p>
+
+      <h2>9. Contact</h2>
+      <p>If you have questions about this privacy policy, you can reach me via:</p>
+      <ul>
+        <li>WhatsApp: <a href="https://wa.me/213666873109" target="_blank" rel="noopener">+213 666 873 109</a></li>
+        <li>Instagram: <a href="https://instagram.com/islameditro" target="_blank" rel="noopener">@islameditro</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var saved = localStorage.getItem('motaz-theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+      else if (window.matchMedia('(prefers-color-scheme: light)').matches) document.body.setAttribute('data-theme', 'light');
+    })();
+
+    function toggleTheme() {
+      var next = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', next);
+      localStorage.setItem('motaz-theme', next);
+    }
+  </script>
+</body>
+</html>
