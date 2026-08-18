@@ -33,8 +33,15 @@
     var banner = document.createElement("div");
     banner.id = "preview-banner";
     banner.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#2563EB,#60A5FA);color:#fff;text-align:center;padding:10px 20px;font-size:0.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:12px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;";
-    banner.innerHTML = "👁 وضع المعاينة — التغييرات غير محفوظة" +
-      '<button onclick="localStorage.removeItem(\'motaz-preview-config\');location.reload();" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;">إغلاق المعاينة</button>';
+    banner.innerHTML = "👁 وضع المعاينة — التغييرات غير محفوظة";
+    var btn = document.createElement("button");
+    btn.textContent = "إغلاق المعاينة";
+    btn.style.cssText = "background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.82rem;";
+    btn.addEventListener("click", function () {
+      localStorage.removeItem("motaz-preview-config");
+      location.reload();
+    });
+    banner.appendChild(btn);
     document.body.prepend(banner);
     document.body.style.paddingTop = "48px";
   }
@@ -608,5 +615,20 @@
     init();
     wireControls();
     setupContentProtection();
+
+    var modal = $("videoModal");
+    if (modal) {
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) closeModal();
+      });
+    }
+    var closeBtn = modal && modal.querySelector(".modal-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+    var form = $("contactForm");
+    if (form) {
+      form.addEventListener("submit", function (e) { handleSubmit(e); });
+    }
   });
 })();

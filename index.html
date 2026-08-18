@@ -45,7 +45,7 @@
   }
   </script>
 
-  <script data-goatcounter="https://motazeditor.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://motazeditor.goatcounter.com/count" async src="https://gc.zgo.at/count.js" integrity="sha384-d948ef569a6d8382651158092363ddb1cae33a33dc8a5ff817566f20c27cd424a14271034a53c8fa5e0f7e882f4cb622" crossorigin="anonymous"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -55,7 +55,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563EB'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FFFFFF' font-family='Arial' font-weight='bold'>M</text></svg>" />
 </head>
 <body>
-  <a href="#home" class="skip-link" onfocus="this.style.top='0'" onblur="this.style.top='-100px'">Skip to content</a>
+  <a href="#home" class="skip-link">Skip to content</a>
 
   <noscript>
     <div style="padding:80px 24px;text-align:center;min-height:100vh;display:flex;align-items:center;justify-content:center;">
@@ -214,7 +214,7 @@
         <h2 class="contact-title" data-i18n="contact_title">Let's make something</h2>
         <p class="contact-desc" data-i18n="contact_desc">Got footage, a channel or just an idea? Tell me about it and I'll cut it.</p>
 
-        <form class="contact-form" onsubmit="return handleSubmit(event)">
+        <form class="contact-form" id="contactForm">
           <div style="position:absolute;left:-9999px;" aria-hidden="true">
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
@@ -252,9 +252,9 @@
   </footer>
 
   <!-- Video modal -->
-  <div id="videoModal" class="modal" onclick="if(event.target===this)closeModal()">
+  <div id="videoModal" class="modal">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <button class="modal-close">&times;</button>
       <h3 id="modalTitle"></h3>
       <p id="modalDesc" class="modal-desc"></p>
       <div id="modalFrameWrap" class="modal-frame-wrap">
@@ -270,6 +270,6 @@
 
   <script src="config.js"></script>
   <script src="script.js"></script>
-  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
+  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" integrity="sha384-074436c6cc58e930664009573eeedfd36f233f58c562c831415c2336cb3f4e71409eb6cf6d3fb061c3dcf98556c69a5e" crossorigin="anonymous"></script>
 </body>
 </html>
