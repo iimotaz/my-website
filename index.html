@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Long-form and short-form video editor for content creators and promotional videos — cinematic cuts, colour grading and punchy sound design." />
+  <meta name="description" content="Video Editor & Storyteller — Long-form and short-form editing built around attention, pacing and storytelling." />
   <meta name="author" content="Motaz" />
-  <meta name="theme-color" content="#2563EB" />
+  <meta name="theme-color" content="#090909" />
   <meta name="robots" content="index, follow" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Motaz — Video Editor" />
-  <meta property="og:title" content="Motaz — Video Editor" />
-  <meta property="og:description" content="Long-form and short-form video editor for content creators and promotional videos." />
+  <meta property="og:site_name" content="Motaz — Video Editor & Storyteller" />
+  <meta property="og:title" content="Motaz — Video Editor & Storyteller" />
+  <meta property="og:description" content="Long-form and short-form editing built around attention, pacing and storytelling." />
   <meta property="og:image" content="https://motaz.is-a.dev/assets/avatar.png" />
   <meta property="og:url" content="https://motaz.is-a.dev" />
   <meta property="og:locale" content="en_US" />
@@ -19,29 +19,28 @@
   <meta property="og:image:height" content="630" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Motaz — Video Editor" />
-  <meta name="twitter:description" content="Long-form and short-form video editor for content creators and promotional videos." />
+  <meta name="twitter:title" content="Motaz — Video Editor & Storyteller" />
+  <meta name="twitter:description" content="Long-form and short-form editing built around attention, pacing and storytelling." />
   <meta name="twitter:image" content="https://motaz.is-a.dev/assets/avatar.png" />
   <meta name="twitter:site" content="@islameditro" />
 
   <link rel="apple-touch-icon" href="assets/avatar.png" />
 
-  <title>Motaz — Video Editor</title>
+  <title>Motaz — Video Editor & Storyteller</title>
   <link rel="canonical" href="https://motaz.is-a.dev" />
   <link rel="alternate" hreflang="en" href="https://motaz.is-a.dev" />
   <link rel="alternate" hreflang="ar" href="https://motaz.is-a.dev" />
   <link rel="alternate" hreflang="x-default" href="https://motaz.is-a.dev" />
 
-  <!-- بيانات منظمة SEO (حدّث url عند تثبيت النطاق النهائي) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "Motaz",
-    "description": "Long-form and short-form video editor for content creators and promotional videos.",
+    "description": "Video Editor & Storyteller — Long-form and short-form editing built around attention, pacing and storytelling.",
     "url": "https://motaz.is-a.dev",
-    "image": "assets/avatar.png",
-    "sameAs": ["https://www.instagram.com/islameditro/", "https://www.youtube.com/@islameditro"]
+    "image": "https://motaz.is-a.dev/assets/avatar.png",
+    "sameAs": ["https://www.instagram.com/islameditro/", "https://www.youtube.com/@motaz4edit"]
   }
   </script>
 
@@ -49,20 +48,30 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563EB'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23FFFFFF' font-family='Arial' font-weight='bold'>M</text></svg>" />
+  <link rel="stylesheet" href="styles.css?v=3.1.1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23090909'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='%23F97316' font-family='Arial' font-weight='bold'>M</text></svg>" />
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader-screen" id="loaderScreen">
+    <div class="loader-content">
+      <div class="loader-ring">
+        <div class="loader-ring-inner"></div>
+      </div>
+      <div class="loader-text">M<span class="loader-dot">.</span></div>
+    </div>
+  </div>
+
   <a href="#home" class="skip-link">Skip to content</a>
 
   <noscript>
     <div style="padding:80px 24px;text-align:center;min-height:100vh;display:flex;align-items:center;justify-content:center;">
       <div>
-        <h1 style="font-size:1.5rem;margin-bottom:12px;">Motaz — Video Editor</h1>
+        <h1 style="font-size:1.5rem;margin-bottom:12px;">Motaz — Video Editor & Storyteller</h1>
         <p style="color:#94A3B8;font-size:0.95rem;">Please enable JavaScript to view this portfolio.</p>
-        <p style="color:#94A3B8;font-size:0.8rem;margin-top:16px;"><a href="mailto:motazeditroforbusiness@gmail.com" style="color:#2563EB;">Contact me directly</a></p>
+        <p style="color:#94A3B8;font-size:0.8rem;margin-top:16px;"><a href="mailto:motazeditroforbusiness@gmail.com" style="color:#F97316;">Contact me directly</a></p>
       </div>
     </div>
   </noscript>
@@ -73,10 +82,9 @@
         <span class="logo-badge" id="logoBadge">M</span>
         <span id="logoText">Motaz</span>
       </a>
-
       <ul class="nav-links" id="navLinks"></ul>
-
       <div class="nav-actions">
+        <a href="#contact" class="nav-cta" data-i18n-nav-cta>Start a Project</a>
         <button id="langToggle" class="lang-toggle" title="English" aria-label="Change language">ع</button>
         <button id="themeToggle" class="theme-toggle" aria-label="Theme" title="Toggle theme">
           <span class="icon-moon">&#9790;</span>
@@ -90,14 +98,14 @@
   </header>
 
   <main>
-    <!-- Hero / Profile & Tools -->
+    <!-- Hero -->
     <section id="home" class="hero">
+      <div class="hero-glow-bg"></div>
       <div class="hero-grid">
-        <!-- Left: Profile Info -->
         <div class="hero-profile">
           <div class="hero-photo-wrap hero-enter">
             <div class="hero-photo-ring">
-              <img id="heroPhoto" class="hero-photo" src="" alt="Portrait" />
+              <img id="heroPhoto" class="hero-photo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Portrait" />
             </div>
           </div>
           <div class="hero-name-row hero-enter">
@@ -107,6 +115,9 @@
               <span id="availLabel"></span>
             </span>
           </div>
+          <p class="hero-tagline hero-enter" id="heroTagline">Video Editor & Storyteller</p>
+          <p class="hero-subline hero-enter" id="heroSubline"></p>
+          <p class="hero-desc hero-enter" id="heroDesc"></p>
           <div class="hero-meta hero-enter">
             <span class="meta-item">
               <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -117,11 +128,12 @@
               <span id="heroLanguages">English, Arabic</span>
             </span>
           </div>
-          <p class="hero-desc hero-enter" id="heroDesc"></p>
+          <div class="hero-actions hero-enter">
+            <a href="#work" class="btn-primary">View My Work</a>
+            <a href="#contact" class="btn-outline">Start a Project</a>
+          </div>
           <div class="hero-socials hero-enter" id="heroSocials"></div>
         </div>
-
-        <!-- Right: Tools -->
         <div class="hero-tools">
           <div class="tools-group">
             <h2 class="tools-heading hero-enter" id="editingToolsTitle">Editing Tools</h2>
@@ -136,11 +148,18 @@
     </section>
 
     <!-- Showreel -->
-    <section id="showreel" class="section reveal" hidden>
+    <section id="showreel" class="section section-showreel reveal" hidden>
       <div class="container">
-        <h2 class="section-title" id="showreelTitle">Showreel</h2>
-        <div class="showreel-wrap">
-          <iframe id="showreelFrame" src="" title="Showreel" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        <span class="section-label" data-i18n="showreel_label">Showreel</span>
+        <h2 class="section-title" id="showreelTitle">Showreel 2026</h2>
+        <div class="showreel-wrap" id="showreelWrap">
+          <div class="showreel-poster" id="showreelPoster">
+            <img src="" alt="Showreel" id="showreelPosterImg" />
+            <button class="showreel-play" id="showreelPlay" aria-label="Play showreel">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+          </div>
+          <iframe id="showreelFrame" src="" title="Showreel" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen style="display:none;"></iframe>
         </div>
       </div>
     </section>
@@ -148,75 +167,135 @@
     <!-- Edited For / Clients -->
     <section id="edited-for" class="section edited-for reveal">
       <div class="container">
+        <span class="section-label">Clients</span>
         <h2 class="section-title" id="editedForTitle">Edited For</h2>
         <p class="section-desc" id="editedForDesc"></p>
         <div class="clients-grid" id="clientsGrid"></div>
       </div>
     </section>
 
-    <!-- Stats / Numbers -->
-    <section id="stats" class="section section-stats reveal" hidden>
-      <div class="container">
-        <div class="stats-grid" id="statsGrid"></div>
-      </div>
-    </section>
+    <!-- Stats — removed per spec-project upgrade -->
+    <section id="stats" class="section section-stats reveal" hidden></section>
 
-    <!-- Video filter -->
-    <div class="filter-bar-wrap">
-      <div class="container">
-        <div class="video-filter-bar" id="videoFilterBar">
-          <button class="filter-chip active" data-filter="all" data-i18n="filter_all">All</button>
-          <button class="filter-chip" data-filter="long" data-i18n="filter_long">Long Form</button>
-          <button class="filter-chip" data-filter="short" data-i18n="filter_short">Short Form</button>
+    <!-- Work / Projects -->
+    <section id="work">
+      <div class="filter-bar-wrap">
+        <div class="container">
+          <span class="section-label">Portfolio</span>
+          <h2 class="section-title" data-i18n="work_title">Selected Work</h2>
+          <div class="video-filter-bar" id="videoFilterBar">
+            <button class="filter-chip active" data-filter="all" data-i18n="filter_all">All</button>
+            <button class="filter-chip" data-filter="long" data-i18n="filter_long">Long Form</button>
+            <button class="filter-chip" data-filter="short" data-i18n="filter_short">Short Form</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Long Form -->
-    <section id="long-form" class="section reveal">
+      <section id="long-form" class="section reveal">
+        <div class="container">
+          <h3 class="section-subtitle" id="longTitle">Long Form</h3>
+          <p class="section-desc" id="longDesc"></p>
+          <div class="video-grid landscape" id="longGrid"></div>
+        </div>
+      </section>
+
+      <section id="short-form" class="section reveal">
+        <div class="container">
+          <h3 class="section-subtitle" id="shortTitle">Short Form</h3>
+          <p class="section-desc" id="shortDesc"></p>
+          <div class="video-grid portrait" id="shortGrid"></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Editing Philosophy -->
+    <section id="philosophy" class="section hero-glow reveal">
       <div class="container">
-        <h2 class="section-title" id="longTitle">Long Form</h2>
-        <p class="section-desc" id="longDesc"></p>
-        <div class="video-grid landscape" id="longGrid"></div>
+        <span class="section-label">Philosophy</span>
+        <h2 class="section-title" data-i18n="philosophy_title">My Editing Philosophy</h2>
+        <p class="section-desc" data-i18n="philosophy_desc">Editing isn't just cutting clips — it's the art of crafting experience.</p>
+        <div class="philosophy-grid" id="philosophyGrid"></div>
       </div>
     </section>
 
-    <!-- Short Form -->
-    <section id="short-form" class="section reveal">
+    <!-- Process -->
+    <section id="process" class="section reveal">
       <div class="container">
-        <h2 class="section-title" id="shortTitle">Short Form</h2>
-        <p class="section-desc" id="shortDesc"></p>
-        <div class="video-grid portrait" id="shortGrid"></div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials" class="section reveal" hidden>
-      <div class="container">
-        <h2 class="section-title" data-i18n="testimonials_title">Testimonials</h2>
-        <p class="section-desc" data-i18n="testimonials_desc">What people I've worked with say</p>
-        <div class="testimonials-grid" id="testimonialsGrid"></div>
-      </div>
-    </section>
-
-    <!-- Process / What I Do -->
-    <section id="process" class="section hero-glow reveal" hidden>
-      <div class="container">
-        <h2 class="section-title" id="processTitle">What I Do</h2>
-        <div class="services-grid" id="servicesGrid"></div>
+        <span class="section-label">Process</span>
+        <h2 class="section-title" id="processTitle">How I Work</h2>
         <div class="process-grid" id="processGrid"></div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section reveal">
+      <div class="container">
+        <span class="section-label">Services</span>
+        <h2 class="section-title" id="servicesTitle">Services</h2>
+        <p class="section-desc" id="servicesDesc"></p>
+        <div class="services-grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <!-- Testimonials — removed per spec-project upgrade -->
+    <section id="testimonials" class="section reveal" hidden></section>
+
+    <!-- About -->
+    <section id="about" class="section hero-glow reveal">
+      <div class="container">
+        <span class="section-label">About</span>
+        <h2 class="section-title" id="aboutTitle">About Me</h2>
+        <div class="about-content" id="aboutContent">
+          <div class="about-text">
+            <p class="about-bio" id="aboutBio"></p>
+            <div class="about-details">
+              <span class="about-detail" id="aboutLocation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Algeria
+              </span>
+              <span class="about-detail" id="aboutLanguages">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                English, Arabic
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section reveal" hidden>
+      <div class="container">
+        <span class="section-label">FAQ</span>
+        <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="final-cta" class="section section-cta reveal">
+      <div class="container">
+        <h2 class="cta-title" id="ctaTitle">Have a project in mind?</h2>
+        <p class="cta-desc" id="ctaDesc">Let's make something worth watching.</p>
+        <div class="cta-actions">
+          <a href="#contact" class="btn-primary btn-lg">Start a Project</a>
+          <a href="#work" class="btn-outline btn-lg">View Work</a>
+        </div>
       </div>
     </section>
 
     <!-- Contact -->
     <section id="contact" class="section reveal">
       <div class="container contact-center">
-        <h2 class="contact-title" data-i18n="contact_title">Let's make something</h2>
-        <p class="contact-desc" data-i18n="contact_desc">Got footage, a channel or just an idea? Tell me about it and I'll cut it.</p>
+        <span class="section-label">Contact</span>
+        <h2 class="contact-title" id="contactTitle">Let's make something worth watching</h2>
+        <p class="contact-desc" id="contactDesc">Got footage or an idea? Tell me about it and I'll cut it.</p>
 
         <form class="contact-form" id="contactForm">
-          <div style="position:absolute;left:-9999px;" aria-hidden="true">
+          <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+            <input type="text" name="phone" tabindex="-1" autocomplete="off" />
+            <input type="email" name="fax" tabindex="-1" autocomplete="off" />
           </div>
           <div class="form-row">
             <div class="form-field">
@@ -230,7 +309,7 @@
           </div>
           <div class="form-field">
             <label for="message" data-i18n="ph_message">Your message</label>
-            <textarea id="message" rows="4" data-i18n-placeholder="ph_message" placeholder="Your message..." required></textarea>
+            <textarea id="message" rows="4" data-i18n-placeholder="ph_message" placeholder="Tell me about your project..." required></textarea>
           </div>
           <button type="submit" class="btn-send" data-i18n="send_form">Send message</button>
         </form>
@@ -240,21 +319,27 @@
   </main>
 
   <footer class="footer">
-    <p class="footer-tagline" id="footerTagline">Everything made with love</p>
-    <p class="footer-copy">&copy; <span id="year"></span> Motaz. All rights reserved.</p>
-    <p class="footer-extras">
-      <a href="policy.html" class="footer-link">Privacy Policy</a>
-    </p>
-    <p class="footer-dmca">
-      <a href="https://www.dmca.com/Protection/Status.aspx?ID=79b57374-4eff-40ad-a323-cc6b6bbceec7" target="_blank" rel="noopener" title="DMCA.com Protection Status" class="dmca-badge"><img src="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=79b57374-4eff-40ad-a323-cc6b6bbceec7" alt="DMCA.com Protection Status" class="dmca-badge-img" /></a>
-    </p>
-    <p class="footer-legal">This portfolio and its content are original work. Unauthorized reproduction is prohibited.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo" id="footerLogo">M</span>
+        <p class="footer-tagline" id="footerTagline">Video Editor & Storyteller</p>
+      </div>
+      <div class="footer-links" id="footerLinks"></div>
+      <div class="footer-socials" id="footerSocials"></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="year"></span> Motaz. All rights reserved.</p>
+      <p class="footer-extras">
+        <a href="policy.html" class="footer-link">Privacy Policy</a>
+        <span class="dmca-badge-wrap"><a href="https://www.dmca.com/Protection/Status.aspx?id=placeholder" title="DMCA Protection" class="dmca-badge"><img src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-00.png?ID=placeholder" alt="DMCA Protection" /></a></span>
+      </p>
+    </div>
   </footer>
 
-  <!-- Video modal -->
+  <!-- Video Modal -->
   <div id="videoModal" class="modal">
     <div class="modal-content">
-      <button class="modal-close">&times;</button>
+      <button class="modal-close" aria-label="Close">&times;</button>
       <h3 id="modalTitle"></h3>
       <p id="modalDesc" class="modal-desc"></p>
       <div id="modalFrameWrap" class="modal-frame-wrap">
@@ -263,13 +348,18 @@
     </div>
   </div>
 
-  <!-- Floating WhatsApp button -->
+  <!-- Back to top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- WhatsApp float -->
   <a id="waFloat" class="wa-float" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" hidden>
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <script src="config.js"></script>
-  <script src="script.js"></script>
+  <script src="config.js?v=3.1.1"></script>
+  <script src="script.js?v=3.1.1"></script>
   <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" integrity="sha384-074436c6cc58e930664009573eeedfd36f233f58c562c831415c2336cb3f4e71409eb6cf6d3fb061c3dcf98556c69a5e" crossorigin="anonymous"></script>
 </body>
 </html>
