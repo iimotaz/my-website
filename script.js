@@ -8,37 +8,20 @@
   var ALLOWED_HOSTS = ["motaz.is-a.dev", "motaz4edit.vercel.app", "my-website1-motaz4.vercel.app", "localhost", "127.0.0.1"];
   var isLocal = window.location.protocol === "file:" || ALLOWED_HOSTS.indexOf(window.location.hostname) !== -1;
   if (!isLocal) {
-    document.documentElement.innerHTML = '<head><meta charset="UTF-8"><title>Motaz</title></head><body style="margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#090909;color:#F1F5F9;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;padding:20px;"><div><h1 style="font-size:1.5rem;margin-bottom:12px;">This portfolio belongs to Motaz</h1><p style="color:#94A3B8;">Unauthorized copies are not permitted.</p><p style="margin-top:20px;"><a href="https://motaz.is-a.dev" style="color:#F97316;">motaz.is-a.dev</a></p></div></body>';
+    document.documentElement.innerHTML = '<head><meta charset="UTF-8"><title>Motaz</title></head><body style="margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#090909;color:#F1F5F9;font-family:-apple-system,BlinkMacSystemFont,sans-serif;text-align:center;padding:20px;"><div><h1 style="font-size:1.5rem;margin-bottom:12px;">This portfolio belongs to Motaz</h1><p style="color:#94A3B8;">Unauthorized copies are not permitted.</p><p style="margin-top:20px;"><a href="https://motaz4edit.vercel.app" style="color:#F97316;">motaz4edit.vercel.app</a></p></div></body>';
     return;
   }
 
   var isPreview = false;
   try {
-    var previewData = localStorage.getItem("motaz-preview-config");
+    var previewData = sessionStorage.getItem("motaz-preview-config");
     if (previewData) {
       var parsed = JSON.parse(previewData);
       if (parsed && parsed.name) { Object.assign(SITE, parsed); isPreview = true; }
     }
   } catch (e) {}
 
-  function addPreviewBanner() {
-    if (!isPreview) return;
-    var banner = document.createElement("div");
-    banner.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#F97316,#fb923c);color:#fff;text-align:center;padding:10px 20px;font-size:0.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:12px;";
-    banner.textContent = "\u205F Preview Mode \u2014 Changes not saved";
-    var closeBtn = document.createElement("button");
-    closeBtn.textContent = "\u2715";
-    closeBtn.style.cssText = "background:none;border:none;color:#fff;font-size:1.1rem;cursor:pointer;padding:0 4px;line-height:1;";
-    closeBtn.title = "Dismiss";
-    closeBtn.addEventListener("click", function() {
-      localStorage.removeItem("motaz-preview-config");
-      banner.remove();
-      document.body.style.paddingTop = "";
-    });
-    banner.appendChild(closeBtn);
-    document.body.prepend(banner);
-    document.body.style.paddingTop = "48px";
-  }
+  function addPreviewBanner() {}
 
   var LS_THEME = "motaz-theme";
   var LS_LANG = "motaz-lang";
@@ -547,31 +530,98 @@
   };
 
   /* ====================== FORM ====================== */
+  function setFormStatus(key, color) {
+    var status = $("formStatus");
+    if (!status) return;
+    var label = LABELS[key] || { en: key, ar: key };
+    status.hidden = false;
+    status.textContent = t(label);
+    status.style.color = color || "var(--primary)";
+  }
+
+  function clearFieldErrors(form) {
+    var marked = form.querySelectorAll(".form-field.invalid");
+    for (var i = 0; i < marked.length; i++) marked[i].classList.remove("invalid");
+  }
+
+  function markInvalid(id, key) {
+    var el = $(id);
+    if (!el) return;
+    var wrap = el.closest ? el.closest(".form-field") : null;
+    if (wrap) wrap.classList.add("invalid");
+    setFormStatus(key, "var(--danger)");
+    try { el.focus({ preventScroll: false }); } catch (e) { el.focus(); }
+  }
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
   window.handleSubmit = function(e) {
+    var form = e.target;
     e.preventDefault();
-    var honeypots = e.target.querySelectorAll('[name="website"],[name="phone"],[name="fax"]');
+    var submitter = e.submitter;
+    var method = submitter ? submitter.value : SITE.contact.receiveMethod;
+    var honeypots = form.querySelectorAll('[name="_honey"],[name="website"],[name="phone"],[name="fax"]');
     for (var i = 0; i < honeypots.length; i++) { if (honeypots[i].value) return false; }
+
+    clearFieldErrors(form);
     var name = $("name").value.trim();
     var email = $("email").value.trim();
     var message = $("message").value.trim();
-    var status = $("formStatus");
-    var isAr = document.documentElement.lang === "ar";
-    var method = SITE.contact.receiveMethod;
-    var link;
-    if (method === "whatsapp" && SITE.contact.whatsapp) {
-      var text = encodeURIComponent((isAr ? "\u0627\u0644\u0627\u0633\u0645: " + name + "\n\u0627\u0644\u0628\u0631\u064A\u062F: " + email + "\n\n" + message : "Name: " + name + "\nEmail: " + email + "\n\n" + message));
-      link = "https://wa.me/" + SITE.contact.whatsapp + "?text=" + text;
-    } else {
-      var subject = encodeURIComponent(isAr ? "\u0631\u0633\u0627\u0644\u0629 \u0645\u0646 \u0645\u0648\u0642\u0639\u064A" : "Portfolio message");
-      var body = encodeURIComponent(name + "\n" + email + "\n\n" + message);
-      link = "mailto:" + SITE.contact.email + "?subject=" + subject + "&body=" + body;
+
+    if (!name) { markInvalid("name", "err_name"); return false; }
+    if (!email) { markInvalid("email", "err_email_required"); return false; }
+    if (!EMAIL_RE.test(email)) { markInvalid("email", "err_email_format"); return false; }
+    if (!message) { markInvalid("message", "err_message"); return false; }
+
+    if (method === "whatsapp") {
+      if (!SITE.contact.whatsapp) {
+        setFormStatus("whatsapp_unavailable", "var(--danger)");
+        return false;
+      }
+      var isAr = document.documentElement.lang === "ar";
+      var text = encodeURIComponent(isAr
+        ? "الاسم: " + name + "\nالبريد: " + email + "\n\n" + message
+        : "Name: " + name + "\nEmail: " + email + "\n\n" + message);
+      var url = "https://wa.me/" + SITE.contact.whatsapp + "?text=" + text;
+      setFormStatus("whatsapp_opening", "var(--primary)");
+      window.location.href = url;
+      return false;
     }
-    status.hidden = false;
-    status.textContent = isAr ? "\u0634\u0643\u0631\u0627\u064B \u0644\u0643! \u0633\u0623\u062A\u0648\u0627\u0635\u0644 \u0645\u0639\u0643 \u0642\u0631\u064A\u0628\u0627\u064B." : "Thanks! I'll get back to you soon.";
-    status.style.color = "var(--primary)";
-    window.location.href = link;
-    e.target.reset();
-    setTimeout(function() { status.hidden = true; }, 6000);
+
+    var buttons = form.querySelectorAll('button[type="submit"]');
+    for (var j = 0; j < buttons.length; j++) buttons[j].disabled = true;
+    setFormStatus("email_sending", "var(--muted-foreground)");
+
+    fetch("https://formsubmit.co/ajax/" + SITE.contact.email, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        message: message,
+        _subject: "New portfolio message",
+        _template: "table"
+      })
+    }).then(function(response) {
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return response.json().catch(function() { return {}; });
+    }).then(function(data) {
+      var ok = data && (data.success === true || data.success === "true");
+      if (!ok) {
+        var err = new Error(data && data.message ? data.message : "FormSubmit rejected the message");
+        err.rejected = true;
+        throw err;
+      }
+      form.reset();
+      setFormStatus("email_sent", "var(--ok)");
+    }).catch(function(err) {
+      var msg = err && err.message ? err.message : "";
+      if (/activation/i.test(msg)) setFormStatus("email_needs_activation", "var(--danger)");
+      else if (err && err.rejected) setFormStatus("email_rejected", "var(--danger)");
+      else setFormStatus("email_failed", "var(--danger)");
+    }).then(function() {
+      for (var k = 0; k < buttons.length; k++) buttons[k].disabled = false;
+    });
     return false;
   };
 
@@ -579,7 +629,21 @@
   var LABELS = {
     contact_title: { ar: "\u0644\u0646\u0635\u0646\u0639 \u0634\u064A\u0626\u0627\u064B \u0631\u0627\u0626\u0639\u0627\u064B", en: "Let's make something worth watching" },
     contact_desc: { ar: "\u0639\u0646\u062F\u0643 \u0644\u0642\u0637\u0627\u062A \u0623\u0648 \u0641\u0643\u0631\u0629\u061F \u0623\u062E\u0628\u0631\u0646\u064A \u0639\u0646\u0647\u0627 \u0648\u0633\u0623\u062D\u0648\u0644\u0647\u0627.", en: "Got footage or an idea? Tell me about it and I'll cut it." },
-    send_form: { ar: "\u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u0631\u0633\u0627\u0644\u0629", en: "Send message" },
+    send_form: { ar: "إرسال الرسالة", en: "Send message" },
+    send_email: { ar: "إرسال عبر البريد", en: "Send via Email" },
+    send_whatsapp: { ar: "إرسال عبر واتساب", en: "Send via WhatsApp" },
+    form_required: { ar: "يرجى ملء جميع الحقول.", en: "Please fill in all fields." },
+    err_name: { ar: "الاسم مطلوب.", en: "Your name is required." },
+    err_email_required: { ar: "البريد الإلكتروني مطلوب.", en: "Your email is required." },
+    err_email_format: { ar: "صيغة البريد الإلكتروني غير صحيحة. مثال: name@example.com", en: "That email address doesn't look right. Example: name@example.com" },
+    err_message: { ar: "نص الرسالة مطلوب.", en: "Your message is required." },
+    email_sending: { ar: "جارٍ إرسال الرسالة...", en: "Sending your message..." },
+    email_sent: { ar: "تم إرسال رسالتك بنجاح. سأرد عليك قريباً.", en: "Message sent successfully. I'll get back to you soon." },
+    email_failed: { ar: "تعذر إرسال البريد. حاول مرة أخرى أو استخدم واتساب.", en: "Email could not be sent. Try again or use WhatsApp." },
+    email_needs_activation: { ar: "أُرسلت رسالة تفعيل إلى بريدك. افتحها واضغط رابط التفعيل، ثم أعد المحاولة.", en: "An activation email was sent to you. Open it, click the activation link, then try again." },
+    email_rejected: { ar: "رفضت الخدمة الرسالة. جرّب واتساب أو تحقق من بريدك.", en: "The service rejected the message. Try WhatsApp or check your email." },
+    whatsapp_opening: { ar: "جارٍ فتح واتساب...", en: "Opening WhatsApp..." },
+    whatsapp_unavailable: { ar: "رقم واتساب غير متوفر.", en: "WhatsApp number is not available." },
     ph_name: { ar: "\u0627\u0633\u0645\u0643", en: "Your name" },
     ph_email: { ar: "\u0628\u0631\u064A\u062F\u0643 \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A", en: "Your email" },
     ph_message: { ar: "\u0631\u0633\u0627\u0644\u062A\u0643\u062E\u0628\u0631\u0646\u064A...", en: "Tell me about your project..." },
@@ -664,10 +728,13 @@
   function applyAccent(c) { document.body.dataset.accent = c; }
   function applyFont(f) {
     var FONTS = {
+      Poppins: '"Poppins", "ITF Qomra Arabic", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif',
       Qomra: '"ITF Qomra Arabic", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif',
+      Inter: '"Inter", "ITF Qomra Arabic", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif',
+      "Geist Mono": '"Geist Mono", "ITF Qomra Arabic", -apple-system, BlinkMacSystemFont, monospace',
       Apple: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, Arial, sans-serif',
-      Cairo: '"Cairo", sans-serif',
-      Tajawal: '"Tajawal", sans-serif'
+      Cairo: '"Cairo", "ITF Qomra Arabic", sans-serif',
+      Tajawal: '"Tajawal", "ITF Qomra Arabic", sans-serif'
     };
     document.documentElement.style.setProperty("--font-body", FONTS[f] || FONTS.Apple);
   }
@@ -790,6 +857,16 @@
       if (closeBtn) closeBtn.addEventListener("click", closeModal);
     }
     var form = $("contactForm");
-    if (form) form.addEventListener("submit", function(e) { handleSubmit(e); });
+    if (form) {
+      form.addEventListener("submit", function(e) { handleSubmit(e); });
+      ["name", "email", "message"].forEach(function(id) {
+        var el = $(id);
+        if (!el) return;
+        el.addEventListener("input", function() {
+          var wrap = el.closest ? el.closest(".form-field") : null;
+          if (wrap) wrap.classList.remove("invalid");
+        });
+      });
+    }
   });
 })();

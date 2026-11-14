@@ -8,6 +8,9 @@
   const LS_KEY = "motaz-preview-config";
 
   // ── Helpers ──
+  function getStore() {
+    return sessionStorage;
+  }
   function esc(s) { return String(s ?? "").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
   function text(val, key, label) {
     return `<div class="field"><label>${label}</label><input type="text" id="field-${key}" value="${esc(val)}" /></div>`;
@@ -36,21 +39,35 @@
   let state = { config: null, lang: "en" };
 
   function load() {
-    try { state.config = JSON.parse(localStorage.getItem(LS_KEY)) || JSON.parse(JSON.stringify(DEFAULT)); }
+    try {
+      var stored = getStore().getItem(LS_KEY);
+      if (stored) {
+        state.config = JSON.parse(stored);
+        showUnsaved(true);
+      } else {
+        state.config = JSON.parse(JSON.stringify(DEFAULT));
+      }
+    }
     catch (e) { state.config = JSON.parse(JSON.stringify(DEFAULT)); }
   }
+
+  function showUnsaved(on) {
+    var b = document.getElementById("unsavedBadge");
+    if (b) b.style.display = on ? "block" : "none";
+  }
+
   function save() {
-    try { localStorage.setItem(LS_KEY, JSON.stringify(state.config)); } catch (e) {}
+    try { getStore().setItem(LS_KEY, JSON.stringify(state.config)); showUnsaved(true); } catch (e) {}
   }
   function reset() {
     if (!confirm("Reset all fields to defaults?")) return;
     state.config = JSON.parse(JSON.stringify(DEFAULT));
-    save(); render();
+    save(); render(); showUnsaved(false);
   }
   function resetAll() {
     if (!confirm("Clear everything and reset to defaults?")) return;
     state.config = JSON.parse(JSON.stringify(DEFAULT));
-    save(); render();
+    save(); render(); showUnsaved(false);
   }
 
   // ── Item management ──
@@ -92,7 +109,7 @@
   // ── DEFAULT ──
   var DEFAULT = {
     language: "en",
-    font: "Qomra",
+    font: "Poppins",
     accent: "orange",
     theme: "dark",
     tagline: { ar: "محرر فيديو وراوي قصص", en: "Video Editor & Storyteller" },
@@ -199,7 +216,7 @@
         text(c.languages?.en,"languages.en","Languages (EN)")+text(c.languages?.ar,"languages.ar","Languages (AR)");
     }},
     { id: "sec-appearance", label: "Appearance", build: function (c) {
-      return select(c.font,"font","Font",[["Qomra","Qomra"],["Inter","Inter"],["Poppins","Poppins"],["IBM Plex Sans","IBM Plex Sans"],["Tajawal","Tajawal"],["Noto Sans Arabic","Noto Sans Arabic"],["Geist Mono","Geist Mono"]])+
+      return select(c.font,"font","Font",[["Poppins","Poppins"],["Qomra","Qomra"],["Inter","Inter"],["Geist Mono","Geist Mono"]])+
         select(c.accent,"accent","Accent",[["orange","Orange (#F97316)"],["blue","Blue (#3B82F6)"],["green","Green (#22C55E)"],["purple","Purple (#A855F7)"],["red","Red (#EF4444)"],["teal","Teal (#14B8A6)"],["pink","Pink (#EC4899)"],["yellow","Yellow (#EAB308)"],["slate","Slate (#64748B)"]])+
         select(c.theme||"dark","theme","Theme",[["dark","Dark"],["light","Light"]]);
     }},
@@ -283,8 +300,7 @@
       h+=addBtn("faq","+ Add FAQ"); return h;
     }},
     { id: "sec-contact", label: "Contact", build: function (c) {
-      var h=text(c.contact?.whatsapp,"contact.whatsapp","WhatsApp Number")+text(c.contact?.email,"contact.email","Email")+
-        select(c.contact?.receiveMethod,"contact.receiveMethod","Receive Method",[["whatsapp","WhatsApp"],["email","Email"],["both","Both"]])+h3("Social Links");
+      var h=text(c.contact?.whatsapp,"contact.whatsapp","WhatsApp Number")+text(c.contact?.email,"contact.email","Email")+h3("Social Links");
       (c.socials||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'socials\','+i+')">✕</button>'+
         text(s.name,"socials."+i+".name","Platform")+text(s.url,"socials."+i+".url","URL")+'</div>';});
       h+=addBtn("socials","+ Add Social Link"); return h;
@@ -319,7 +335,7 @@
     var fields = el.querySelector(".fields");
     var arr = el.querySelector(".arr");
     if (!fields) return;
-    var visible = window.getComputedStyle(fields).display !== "none";
+    var visible = fields.style.display !== "none";
     if (visible) {
       fields.style.display = "none";
       if (arr) arr.textContent = "▸";
@@ -496,6 +512,7 @@
   // ══════════════════════════════════════════════════════
   function preview() {
     apply();
+    save();
     var iframe = document.getElementById("prev-frame");
     if (!iframe) {
       iframe = document.createElement("iframe");
@@ -510,7 +527,8 @@
     var iframe = document.getElementById("prev-frame");
     if (iframe) iframe.remove();
     document.getElementById("close-btn").style.display = "none";
-    localStorage.removeItem(LS_KEY);
+    try { getStore().removeItem(LS_KEY); } catch (e) {}
+    showUnsaved(false);
   }
   function download() {
     apply();
@@ -532,6 +550,91 @@
     }).catch(function () { download(); });
   }
 
+  // ── Translate EN→AR ──
+  function collectEnTexts(obj, prefix, out) {
+    if (!obj || typeof obj !== "object") return;
+    Object.keys(obj).forEach(function (k) {
+      var path = prefix ? prefix + "." + k : k;
+      if (k === "en" && typeof obj[k] === "string" && obj[k].trim()) {
+        out.push({ path: path, key: k, val: obj[k], parent: obj });
+      } else if (Array.isArray(obj[k])) {
+        obj[k].forEach(function (item, i) {
+          if (item && typeof item === "object") collectEnTexts(item, path + "." + i, out);
+        });
+      } else if (typeof obj[k] === "object" && obj[k] !== null) {
+        collectEnTexts(obj[k], path, out);
+      }
+    });
+  }
+
+  function setByPath(obj, path, val) {
+    var parts = path.split(".");
+    var cur = obj;
+    for (var i = 0; i < parts.length - 1; i++) {
+      if (!cur[parts[i]]) return;
+      cur = cur[parts[i]];
+    }
+    cur[parts[parts.length - 1]] = val;
+  }
+
+  function translateENtoAR() {
+    apply();
+    var texts = [];
+    collectEnTexts(state.config, "", texts);
+    if (!texts.length) { toast("No English texts found."); return; }
+
+    var btn = document.getElementById("translate-btn");
+    btn.textContent = "Translating...";
+    btn.disabled = true;
+
+    var cache = {};
+    var idx = 0;
+    var batchSize = 10;
+
+    function doBatch() {
+      var batch = texts.slice(idx, idx + batchSize);
+      if (!batch.length) { finish(); return; }
+
+      var q = batch.map(function (t, i) { return "ITEM" + i + "=" + t.val; }).join("&");
+      var url = "https://api.mymemory.translated.net/get?" + q + "&langpair=en|ar";
+
+      fetch(url).then(function (r) { return r.json(); }).then(function (data) {
+        var translated = data.responseData;
+        if (translated && translated.matches) {
+          batch.forEach(function (t, i) {
+            var m = translated.matches.find(function (x) { return x.segment === t.val; });
+            var arText = m ? m.translation : (translated.translation || t.val);
+            setByPath(state.config, t.path.replace(/\.en$/, ".ar"), arText);
+          });
+        }
+        idx += batchSize;
+        btn.textContent = "Translating... " + Math.round(idx / texts.length * 100) + "%";
+        setTimeout(doBatch, 600);
+      }).catch(function () {
+        toast("Translation error. Check connection.");
+        btn.textContent = "Translate EN→AR";
+        btn.disabled = false;
+      });
+    }
+
+    function finish() {
+      save();
+      render();
+      btn.textContent = "Translate EN→AR";
+      btn.disabled = false;
+      toast("All English texts translated to Arabic!");
+    }
+
+    doBatch();
+  }
+
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function () { t.classList.remove("show"); t.textContent = "Saved to memory."; }, 2500);
+  }
+
   // ══════════════════════════════════════════════════════
   //  INIT
   // ══════════════════════════════════════════════════════
@@ -544,6 +647,8 @@
     document.getElementById("copy-btn").addEventListener("click", copyConfig);
     document.getElementById("reset-btn").addEventListener("click", reset);
     document.getElementById("clear-btn").addEventListener("click", resetAll);
-    window.addEventListener("beforeunload", function () { apply(); });
+    document.getElementById("translate-btn").addEventListener("click", translateENtoAR);
+    var panels = document.getElementById("panels");
+    if (panels) panels.addEventListener("input", function() { showUnsaved(true); });
   });
 })();

@@ -18,4 +18,4 @@ Disallow: /
 User-agent: ClaudeBot
 Disallow: /
 
-Sitemap: https://motaz.is-a.dev/sitemap.xml
+Sitemap: https://motaz4edit.vercel.app/sitemap.xml

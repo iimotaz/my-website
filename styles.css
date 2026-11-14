@@ -25,6 +25,50 @@
   src: url("./assets/fonts/itfQomraArabic-Medium.woff2") format("woff2");
 }
 
+/* --- Poppins (Latin only) ---
+   Used for Latin text; Arabic falls back to ITF Qomra Arabic.
+   Local files — no third-party request. */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/Poppins-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/Poppins-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/Poppins-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/Poppins-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 800;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url("./assets/fonts/Poppins-ExtraBold.woff2") format("woff2");
+}
+
 /* --- Geist Mono --- */
 @font-face {
   font-family: "Geist Mono";
@@ -63,10 +107,12 @@
   --blue-soft: #FB923C;
   --border: rgba(36, 43, 53, 0.6);
   --ring: #F97316;
+  --danger: #F87171;
+  --ok: #4ADE80;
   --glow: 0 0 40px rgba(249, 115, 22, 0.25);
   --glow-strong: 0 0 80px rgba(249, 115, 22, 0.4);
   --gradient-radial: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.12) 0%, rgba(249, 115, 22, 0) 70%);
-  --font-body: "ITF Qomra Arabic", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body: "Poppins", "ITF Qomra Arabic", "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
   --radius: 16px;
   --glass-blur: blur(20px);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -93,6 +139,8 @@ body[data-theme="light"] {
   --primary-foreground: #FFFFFF;
   --blue-soft: #FB923C;
   --border: rgba(203, 213, 225, 0.5);
+  --danger: #DC2626;
+  --ok: #16A34A;
   --glow: 0 0 40px rgba(249, 115, 22, 0.15);
   --gradient-radial: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0) 70%);
   --glass-blur: blur(16px);
@@ -557,9 +605,21 @@ html[dir="rtl"] .faq-question { text-align: right; }
   color: var(--primary-foreground); border-radius: 999px;
   box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35);
   transition: box-shadow 0.25s, transform 0.25s;
+  border: 0; cursor: pointer; font-family: inherit;
 }
 .btn-send:hover { box-shadow: 0 12px 36px rgba(249, 115, 22, 0.5); transform: translateY(-2px); }
 .btn-send:active { transform: translateY(1px); }
+.btn-whatsapp {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 30px; font-size: 0.95rem; font-weight: 700;
+  background: #25D366; color: #04230f; border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+  transition: box-shadow 0.25s, transform 0.25s;
+  border: 0; cursor: pointer; font-family: inherit;
+}
+.btn-whatsapp:hover { box-shadow: 0 12px 36px rgba(37, 211, 102, 0.4); transform: translateY(-2px); }
+.btn-whatsapp:active { transform: translateY(1px); }
+.btn-send:disabled, .btn-whatsapp:disabled { opacity: 0.6; cursor: wait; transform: none; }
 
 .contact-form { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; text-align: left; }
 html[dir="rtl"] .contact-form { text-align: right; }
@@ -577,8 +637,19 @@ body[data-theme="light"] .contact-form input, body[data-theme="light"] .contact-
   outline: none; border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
 }
-.contact-form .btn-send { justify-content: center; }
+.contact-form .form-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+.contact-form .btn-send, .contact-form .btn-whatsapp { justify-content: center; }
 .form-status { margin-top: 12px; font-weight: 600; }
+.form-field.invalid input, .form-field.invalid textarea {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
+}
+@supports (color: color-mix(in srgb, red 50%, transparent)) {
+  .form-field.invalid input, .form-field.invalid textarea {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 22%, transparent);
+  }
+}
+.form-field.invalid label { color: var(--danger); }
 
 /* ===== FINAL CTA ===== */
 .section-cta { text-align: center; }
@@ -630,7 +701,6 @@ body[data-theme="light"] .footer { background: rgba(248, 250, 252, 0.4); }
 .footer-extras { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .footer-link { color: var(--muted-foreground); font-size: 0.8rem; text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
 .footer-link:hover { color: var(--primary); }
-.dmca-badge img { height: 25px; }
 
 /* ===== MODAL ===== */
 .modal {

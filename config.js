@@ -5,7 +5,7 @@
 
 const SITE = {
   "language": "en",
-  "font": "Qomra",
+  "font": "Poppins",
   "accent": "orange",
   "theme": "dark",
   "tagline": {
