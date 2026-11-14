@@ -32,7 +32,7 @@
     return `<div style="margin:8px 0 4px;padding-top:8px;font-weight:600;font-size:11px;color:#777;text-transform:uppercase;letter-spacing:.5px;border-top:1px solid #222">${t}</div>`;
   }
   function addBtn(path, label) {
-    return `<button class="add" onclick="window.__editor.addItem('${path}')">${label}</button>`;
+    return `<button class="add" data-add="${path}">${label}</button>`;
   }
 
   // ── State ──
@@ -236,34 +236,34 @@
     { id: "sec-tools", label: "Tools", build: function (c) {
       var h=h3("Section Titles")+text(c.toolsSection?.editing?.en,"toolsSection.editing.en","Editing Title (EN)")+text(c.toolsSection?.editing?.ar,"toolsSection.editing.ar","Editing Title (AR)")+
         text(c.toolsSection?.ai?.en,"toolsSection.ai.en","AI Title (EN)")+text(c.toolsSection?.ai?.ar,"toolsSection.ai.ar","AI Title (AR)")+h3("Editing Tools");
-      (c.editingTools||[]).forEach(function(t,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'editingTools\','+i+')">✕</button><div class="subsec-head">'+esc(t.name||"Tool")+'</div>'+text(t.name,"editingTools."+i+".name","Name")+text(t.icon,"editingTools."+i+".icon","Icon ID")+'</div>';});
+      (c.editingTools||[]).forEach(function(t,i){h+='<div class="field"><button class="remove" data-remove="editingTools" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(t.name||"Tool")+'</div>'+text(t.name,"editingTools."+i+".name","Name")+text(t.icon,"editingTools."+i+".icon","Icon ID")+'</div>';});
       h+=addBtn("editingTools","+ Add Editing Tool")+h3("AI Tools");
-      (c.aiTools||[]).forEach(function(t,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'aiTools\','+i+')">✕</button><div class="subsec-head">'+esc(t.name||"Tool")+'</div>'+text(t.name,"aiTools."+i+".name","Name")+text(t.icon,"aiTools."+i+".icon","Icon ID")+'</div>';});
+      (c.aiTools||[]).forEach(function(t,i){h+='<div class="field"><button class="remove" data-remove="aiTools" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(t.name||"Tool")+'</div>'+text(t.name,"aiTools."+i+".name","Name")+text(t.icon,"aiTools."+i+".icon","Icon ID")+'</div>';});
       h+=addBtn("aiTools","+ Add AI Tool"); return h;
     }},
     { id: "sec-sectors", label: "Sectors", build: function (c) {
       var h=text(c.editedFor?.title?.en,"editedFor.title.en","Section Title (EN)")+text(c.editedFor?.title?.ar,"editedFor.title.ar","Section Title (AR)")+
         textarea(c.editedFor?.desc?.en,"editedFor.desc.en","Description (EN)")+textarea(c.editedFor?.desc?.ar,"editedFor.desc.ar","Description (AR)")+h3("Sector List");
-      (c.clients||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'clients\','+i+')">✕</button>'+text(s,"clients."+i,"Sector")+'</div>';});
+      (c.clients||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" data-remove="clients" data-index="'+i+'">✕</button>'+text(s,"clients."+i,"Sector")+'</div>';});
       h+=addBtn("clients","+ Add Sector"); return h;
     }},
     { id: "sec-services", label: "Services", build: function (c) {
       var h="";
-      (c.services||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'services\','+i+')">✕</button><div class="subsec-head">'+esc(s.title?.en||"Service")+'</div>'+
+      (c.services||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" data-remove="services" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(s.title?.en||"Service")+'</div>'+
         text(s.icon,"services."+i+".icon","Icon")+text(s.title?.en,"services."+i+".title.en","Title (EN)")+text(s.title?.ar,"services."+i+".title.ar","Title (AR)")+
         text(s.text?.en,"services."+i+".text.en","Text (EN)")+text(s.text?.ar,"services."+i+".text.ar","Text (AR)")+'</div>';});
       h+=addBtn("services","+ Add Service"); return h;
     }},
     { id: "sec-process", label: "Process", build: function (c) {
       var h="";
-      (c.process||[]).forEach(function(p,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'process\','+i+')">✕</button><div class="subsec-head">Step '+esc(p.step||"")+'</div>'+
+      (c.process||[]).forEach(function(p,i){h+='<div class="field"><button class="remove" data-remove="process" data-index="'+i+'">✕</button><div class="subsec-head">Step '+esc(p.step||"")+'</div>'+
         text(p.step,"process."+i+".step","Step #")+text(p.title?.en,"process."+i+".title.en","Title (EN)")+text(p.title?.ar,"process."+i+".title.ar","Title (AR)")+
         textarea(p.text?.en,"process."+i+".text.en","Text (EN)")+textarea(p.text?.ar,"process."+i+".text.ar","Text (AR)")+'</div>';});
       h+=addBtn("process","+ Add Step"); return h;
     }},
     { id: "sec-philosophy", label: "Philosophy", build: function (c) {
       var h="";
-      (c.philosophy||[]).forEach(function(p,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'philosophy\','+i+')">✕</button><div class="subsec-head">'+esc(p.title?.en||"Item")+'</div>'+
+      (c.philosophy||[]).forEach(function(p,i){h+='<div class="field"><button class="remove" data-remove="philosophy" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(p.title?.en||"Item")+'</div>'+
         text(p.icon,"philosophy."+i+".icon","Icon")+text(p.title?.en,"philosophy."+i+".title.en","Title (EN)")+text(p.title?.ar,"philosophy."+i+".title.ar","Title (AR)")+
         textarea(p.text?.en,"philosophy."+i+".text.en","Text (EN)")+textarea(p.text?.ar,"philosophy."+i+".text.ar","Text (AR)")+'</div>';});
       h+=addBtn("philosophy","+ Add Item"); return h;
@@ -272,7 +272,7 @@
       function pFields(items,path,cat){
         var h="";
         (items||[]).forEach(function(p,i){
-          h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\''+path+'\','+i+')">✕</button><div class="subsec-head">'+esc(p.title||p.titleAr||"Project")+'</div>'+
+          h+='<div class="field"><button class="remove" data-remove="'+path+'" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(p.title||p.titleAr||"Project")+'</div>'+
             text(p.id,path+"."+i+".id","ID")+text(p.title,path+"."+i+".title","Title (EN)")+text(p.titleAr,path+"."+i+".titleAr","Title (AR)")+
             textarea(p.brief,path+"."+i+".brief","Brief")+text(p.role,path+"."+i+".role","Role")+
             text(Array.isArray(p.tools)?p.tools.join(", "):(p.tools||""),path+"."+i+".tools","Tools (comma-sep)")+
@@ -294,20 +294,20 @@
     }},
     { id: "sec-faq", label: "FAQ", build: function (c) {
       var h="";
-      (c.faq||[]).forEach(function(f,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'faq\','+i+')">✕</button><div class="subsec-head">'+esc(f.question?.en||"Question")+'</div>'+
+      (c.faq||[]).forEach(function(f,i){h+='<div class="field"><button class="remove" data-remove="faq" data-index="'+i+'">✕</button><div class="subsec-head">'+esc(f.question?.en||"Question")+'</div>'+
         text(f.question?.en,"faq."+i+".question.en","Question (EN)")+text(f.question?.ar,"faq."+i+".question.ar","Question (AR)")+
         textarea(f.answer?.en,"faq."+i+".answer.en","Answer (EN)")+textarea(f.answer?.ar,"faq."+i+".answer.ar","Answer (AR)")+'</div>';});
       h+=addBtn("faq","+ Add FAQ"); return h;
     }},
     { id: "sec-contact", label: "Contact", build: function (c) {
       var h=text(c.contact?.whatsapp,"contact.whatsapp","WhatsApp Number")+text(c.contact?.email,"contact.email","Email")+h3("Social Links");
-      (c.socials||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'socials\','+i+')">✕</button>'+
+      (c.socials||[]).forEach(function(s,i){h+='<div class="field"><button class="remove" data-remove="socials" data-index="'+i+'">✕</button>'+
         text(s.name,"socials."+i+".name","Platform")+text(s.url,"socials."+i+".url","URL")+'</div>';});
       h+=addBtn("socials","+ Add Social Link"); return h;
     }},
     { id: "sec-nav", label: "Navigation", build: function (c) {
       var h="";
-      (c.nav||[]).forEach(function(n,i){h+='<div class="field"><button class="remove" onclick="window.__editor.removeItem(\'nav\','+i+')">✕</button>'+
+      (c.nav||[]).forEach(function(n,i){h+='<div class="field"><button class="remove" data-remove="nav" data-index="'+i+'">✕</button>'+
         text(n.href,"nav."+i+".href","Href")+text(n.label?.en,"nav."+i+".label.en","Label (EN)")+text(n.label?.ar,"nav."+i+".label.ar","Label (AR)")+'</div>';});
       h+=addBtn("nav","+ Add Nav Item"); return h;
     }}
@@ -317,13 +317,24 @@
   //  MAIN RENDER — only headers, no field content
   // ══════════════════════════════════════════════════════
   function render() {
+    var panels = document.getElementById("panels");
+    // Remember which sections are open so a rebuild (add/remove item) does not
+    // collapse the whole panel and lose the user's place.
+    var open = [];
+    if (panels) {
+      Array.prototype.forEach.call(panels.querySelectorAll(".sec"), function (sec) {
+        var f = sec.querySelector(".fields");
+        if (f && f.style.display === "block") open.push(sec.id);
+      });
+    }
     var html = "";
     SECTIONS.forEach(function (sec) {
       html += '<div class="sec" id="'+sec.id+'">'+
-        '<div class="sec-head" onclick="toggle(\''+sec.id+'\')"><span>'+sec.label+'</span><span class="arr">▸</span></div>'+
+        '<div class="sec-head" data-toggle="'+sec.id+'"><span>'+sec.label+'</span><span class="arr">▸</span></div>'+
         '<div class="fields" id="'+sec.id+'-fields"></div></div>';
     });
-    document.getElementById("panels").innerHTML = html;
+    panels.innerHTML = html;
+    open.forEach(function (id) { window.toggle(id); });
   }
 
   // ══════════════════════════════════════════════════════
@@ -335,7 +346,9 @@
     var fields = el.querySelector(".fields");
     var arr = el.querySelector(".arr");
     if (!fields) return;
-    var visible = fields.style.display !== "none";
+    // .fields starts hidden via CSS (display:none), so the inline style is ""
+    // until we open it. Compare against "block" to know the real state.
+    var visible = fields.style.display === "block";
     if (visible) {
       fields.style.display = "none";
       if (arr) arr.textContent = "▸";
@@ -353,6 +366,16 @@
   //  PUBLIC API
   // ══════════════════════════════════════════════════════
   window.__editor = { addItem: addItem, removeItem: removeItem };
+
+  // CSP-safe delegated clicks — inline onclick is blocked by script-src 'self'
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest("[data-toggle],[data-add],[data-remove]") : null;
+    if (!el) return;
+    if (el.hasAttribute("data-toggle")) { window.toggle(el.getAttribute("data-toggle")); return; }
+    if (el.hasAttribute("data-add")) { addItem(el.getAttribute("data-add")); return; }
+    var index = parseInt(el.getAttribute("data-index"), 10);
+    removeItem(el.getAttribute("data-remove"), isNaN(index) ? 0 : index);
+  });
 
   // ══════════════════════════════════════════════════════
   //  APPLY — reads all currently rendered fields
