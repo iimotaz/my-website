@@ -2,15 +2,15 @@ node_modules/
 .env
 .env.*
 *.log
+*.bak
 .DS_Store
 Thumbs.db
 Desktop.ini
 *.swp
 *.swo
 *~
+
 .vscode/
 .idea/
-edit.html
-editor.js
 
 .vercel
